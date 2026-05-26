@@ -1,0 +1,14 @@
+[Unit]
+Description=Maze Pi Robot Web Server
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/maze_pi
+ExecStart=/usr/bin/python3 /home/pi/maze_pi/app.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

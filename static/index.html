@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Pi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/msg/en.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Maze Pi</h1>
+        <div class="controls">
+            <button id="run-button" class="btn btn-run">Run</button>
+            <button id="stop-button" class="btn btn-stop">Stop</button>
+            <button id="clear-button" class="btn btn-clear">Clear</button>
+        </div>
+    </header>
+    <main>
+        <div id="blockly-container"></div>
+        <aside id="side-panel">
+
+            <section>
+                <h2>Status</h2>
+                <div id="status-info" class="readout">Ready</div>
+            </section>
+
+            <section>
+                <h2>System</h2>
+                <div class="stat-row">
+                    <span class="stat-label">Battery</span>
+                    <div class="stat-bar-wrap">
+                        <div class="stat-bar" id="battery-bar"></div>
+                    </div>
+                    <span class="stat-value" id="battery-text">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">CPU</span>
+                    <div class="stat-bar-wrap">
+                        <div class="stat-bar" id="cpu-bar"></div>
+                    </div>
+                    <span class="stat-value" id="cpu-text">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">RAM</span>
+                    <div class="stat-bar-wrap">
+                        <div class="stat-bar" id="ram-bar"></div>
+                    </div>
+                    <span class="stat-value" id="ram-text">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Disk</span>
+                    <div class="stat-bar-wrap">
+                        <div class="stat-bar" id="disk-bar"></div>
+                    </div>
+                    <span class="stat-value" id="disk-text">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Temp</span>
+                    <span class="stat-value stat-value-wide" id="temp-text">--</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">IP</span>
+                    <span class="stat-value stat-value-wide" id="ip-text">--</span>
+                </div>
+            </section>
+
+            <section>
+                <h2>Sonar</h2>
+                <div id="sonar-value" class="readout">--</div>
+            </section>
+
+            <section id="commands-section" style="display:none">
+                <h2>Commands</h2>
+                <pre id="program-preview" class="program-preview">[]</pre>
+            </section>
+
+        </aside>
+    </main>
+    <script src="js/blocks.js"></script>
+    <script src="js/toolbox.js"></script>
+    <script src="js/generator.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
