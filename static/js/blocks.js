@@ -110,6 +110,7 @@ Blockly.defineBlocksWithJsonArray([
     {
         type: 'maze_forever',
         message0: 'repeat forever',
+        args0: [],
         message1: 'do %1',
         args1: [
             { type: 'input_statement', name: 'BODY' }

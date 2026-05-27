@@ -80,10 +80,10 @@ class RobotController:
         self.move(max(MIN_SPEED, speed), RIGHT_ANGLE, 0)
 
     def turn_left(self, speed=DEFAULT_SPEED):
-        self.move(0, FORWARD_ANGLE, _speed_to_turn_rate(speed))
+        self.move(0, FORWARD_ANGLE, -_speed_to_turn_rate(speed))
 
     def turn_right(self, speed=DEFAULT_SPEED):
-        self.move(0, FORWARD_ANGLE, -_speed_to_turn_rate(speed))
+        self.move(0, FORWARD_ANGLE, _speed_to_turn_rate(speed))
 
     def stop(self):
         self.move(0, 0, 0)
