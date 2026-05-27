@@ -26,6 +26,7 @@ const stopButton     = document.getElementById('stop-button');
 const clearButton    = document.getElementById('clear-button');
 const statusInfo     = document.getElementById('status-info');
 const sonarValue     = document.getElementById('sonar-value');
+const lsDots         = [1, 2, 3, 4].map(i => document.getElementById('ls-' + i));
 const programPreview = document.getElementById('program-preview');
 
 const batteryBar  = document.getElementById('battery-bar');
@@ -142,6 +143,18 @@ async function refreshSonar() {
     }
 }
 
+async function refreshLineSensors() {
+    try {
+        const data = await (await fetch('/api/sensor/line')).json();
+        const values = data.value;
+        if (Array.isArray(values)) {
+            lsDots.forEach((dot, i) => {
+                if (dot) dot.classList.toggle('active', values[i] === true);
+            });
+        }
+    } catch (_) {}
+}
+
 async function refreshSystem() {
     try {
         const d = await (await fetch('/api/system')).json();
@@ -183,6 +196,7 @@ async function refreshSystem() {
 
 setInterval(refreshStatus, 500);
 setInterval(refreshSonar, 500);
+setInterval(refreshLineSensors, 250);
 setInterval(refreshSystem, 2000);
 
 refreshSystem();

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Pi — Docs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Maze Pi</h1>
+        <nav class="page-nav">
+            <a href="/"     class="nav-link">Blocks</a>
+            <a href="/code" class="nav-link">Code</a>
+            <a href="/docs" class="nav-link active">Docs</a>
+        </nav>
+    </header>
+
+    <main class="docs-layout">
+
+        <aside class="docs-sidebar">
+            <div class="sidebar-group">REST API</div>
+            <a class="sidebar-link" href="#api-run">POST /api/run</a>
+            <a class="sidebar-link" href="#api-stop">POST /api/stop</a>
+            <a class="sidebar-link" href="#api-status">GET /api/status</a>
+            <a class="sidebar-link" href="#api-sensor-sonar">GET /api/sensor/sonar</a>
+            <a class="sidebar-link" href="#api-sensor-line">GET /api/sensor/line</a>
+            <a class="sidebar-link" href="#api-system">GET /api/system</a>
+            <a class="sidebar-link" href="#api-info">GET /api/info</a>
+            <a class="sidebar-link" href="#api-run-code">POST /api/run_code</a>
+            <a class="sidebar-link" href="#api-code-status">GET /api/code/status</a>
+            <a class="sidebar-link" href="#api-saves">Saves CRUD</a>
+
+            <div class="sidebar-group">Python API</div>
+            <a class="sidebar-link" href="#fn-movement">Movement</a>
+            <a class="sidebar-link" href="#fn-control">Control</a>
+            <a class="sidebar-link" href="#fn-sensors">Sensors</a>
+            <a class="sidebar-link" href="#fn-effects">Effects</a>
+        </aside>
+
+        <article class="docs-content">
+
+            <section class="docs-section" id="rest">
+                <h2>REST API</h2>
+
+                <div class="endpoint-card" id="api-run">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="endpoint-path">/api/run</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Start running a block program. The robot stops any currently running program or Python code before starting.</p>
+                        <h4>Request Body</h4>
+                        <pre><code class="language-json">{
+  "commands": [
+    { "action": "forward",    "duration": 2, "speed": 80 },
+    { "action": "turn_left",  "duration": 1, "speed": 80 },
+    { "action": "set_led",    "color": "green" },
+    { "action": "beep",       "duration": 0.3 }
+  ]
+}</code></pre>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "status": "started", "count": 4 }</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-stop">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="endpoint-path">/api/stop</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Stop the robot immediately. Halts both block programs and Python code execution.</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "status": "stopped" }</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-status">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/status</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the current state of the block program executor.</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{
+  "running": true,
+  "current": { "action": "forward" }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-sensor-sonar">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/sensor/sonar</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the current sonar (ultrasonic) distance reading in centimetres.</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "sensor": "sonar", "value": 23.4, "mock": false }</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-sensor-line">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/sensor/line</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the state of all four infrared line sensors. Each value is <code>true</code> when a black line is detected under that sensor (left to right: S1–S4).</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "sensor": "line", "value": [false, true, true, false], "mock": false }</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-system">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/system</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns system statistics for the robot's Raspberry Pi.</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{
+  "battery_v":   7.8,
+  "battery_pct": 65,
+  "cpu_pct":     12,
+  "cpu_temp_c":  52,
+  "ram":         { "percent": 38, "used_mb": 310 },
+  "disk":        { "percent": 21, "used_gb": 3.1, "total_gb": 15.0 },
+  "ip":          "192.168.1.42",
+  "mock":        false
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-info">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/info</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns whether the server is running in mock mode (no physical robot).</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "mock": false, "hardware_available": true }</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-run-code">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="endpoint-path">/api/run_code</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Execute a Python program with access to all robot functions. The program runs in a background thread; poll <code>/api/code/status</code> for output. Any running block program is stopped first.</p>
+                        <h4>Request Body</h4>
+                        <pre><code class="language-json">{ "code": "forward(2, 80)\nturn_left(1, 80)\nprint('done')" }</code></pre>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "status": "started" }</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-code-status">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/code/status</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>Returns the execution state and buffered output of the Python code runner. Poll this after calling <code>/api/run_code</code>.</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{
+  "running": false,
+  "output":  ["Distance: 42.1", "Turning...", "[stopped]"],
+  "error":   null
+}</code></pre>
+                        <p>When a runtime error occurs, <code>error</code> contains the exception message and <code>running</code> is <code>false</code>.</p>
+                        <pre><code class="language-json">{
+  "running": false,
+  "output":  [],
+  "error":   "NameError: name 'oops' is not defined"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" id="api-saves">
+                    <div class="endpoint-header">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="endpoint-path">/api/saves</code>
+                    </div>
+                    <div class="endpoint-body">
+                        <p>List all saved block programs.</p>
+                        <h4>Response</h4>
+                        <pre><code class="language-json">{ "saves": ["maze run 1", "test turn"] }</code></pre>
+                        <h4>Load a save — GET /api/saves/&lt;name&gt;</h4>
+                        <pre><code class="language-json">{ "xml": "&lt;xml&gt;...&lt;/xml&gt;", "commands": [...] }</code></pre>
+                        <h4>Write a save — PUT /api/saves/&lt;name&gt;</h4>
+                        <p>Body: any JSON object (the full workspace state). Returns <code>{"status":"saved","name":"..."}</code>.</p>
+                        <h4>Delete a save — DELETE /api/saves/&lt;name&gt;</h4>
+                        <p>Returns <code>{"status":"deleted","name":"..."}</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="docs-section" id="python-api">
+                <h2>Python Code API</h2>
+                <p style="font-size:.88rem;color:#374151;margin-bottom:1.5rem;line-height:1.6">
+                    The following functions are available in the <a href="/code" style="color:#1d4ed8">Code editor</a>.
+                    All movement functions are blocking — they drive the robot and return only after the duration has elapsed.
+                    <br>Speed ranges from <strong>50–100</strong> (default <strong>80</strong>). Duration is in seconds.
+                </p>
+
+                <h3 id="fn-movement" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Movement</h3>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">forward(duration=1, speed=80)</code></div>
+                    <div class="fn-body">
+                        <p>Drive the robot forward, then stop.</p>
+                        <table class="param-table">
+                            <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td>duration</td><td>float</td><td>1</td><td>Seconds to drive</td></tr>
+                                <tr><td>speed</td><td>int</td><td>80</td><td>Speed 50–100</td></tr>
+                            </tbody>
+                        </table>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">forward(2, 80)
+forward(0.5)
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">backward(duration=1, speed=80)</code></div>
+                    <div class="fn-body">
+                        <p>Drive the robot backward, then stop.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">backward(1, 70)
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">turn_left(duration=1, speed=80)</code></div>
+                    <div class="fn-body">
+                        <p>Spin left in place for the given duration. Higher speed = sharper turn (speed 50 → turn rate 1.0, speed 100 → turn rate 2.0).</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">turn_left(0.8, 100)
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">turn_right(duration=1, speed=80)</code></div>
+                    <div class="fn-body">
+                        <p>Spin right in place for the given duration.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">turn_right(0.8, 100)
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">strafe_left(duration=1, speed=80)</code></div>
+                    <div class="fn-body"><p>Slide sideways to the left using mecanum wheels.</p></div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">strafe_right(duration=1, speed=80)</code></div>
+                    <div class="fn-body"><p>Slide sideways to the right using mecanum wheels.</p></div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">stop()</code></div>
+                    <div class="fn-body"><p>Stop all motors immediately. Does not block.</p></div>
+                </div>
+
+                <h3 id="fn-control" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Control</h3>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">wait(duration=1)</code></div>
+                    <div class="fn-body">
+                        <p>Pause the program. Responds to the Stop button unlike <code>time.sleep()</code>.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">forward(1, 80)
+wait(0.5)
+backward(1, 80)
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">print(*args)</code></div>
+                    <div class="fn-body">
+                        <p>Print values to the output terminal on the Code page. Works like the built-in <code>print()</code>.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">d = distance_cm()
+print('Distance:', d, 'cm')
+
+sensors = read_line_sensor()
+print('Line sensors:', sensors)
+</code></pre>
+                    </div>
+                </div>
+
+                <h3 id="fn-sensors" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Sensors</h3>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">distance_cm()</code></div>
+                    <div class="fn-body">
+                        <p>Read the ultrasonic sonar sensor. Returns a float (centimetres) or <code>None</code> if unavailable.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">while True:
+    d = distance_cm()
+    print('Distance:', d)
+    if d is not None and d < 20:
+        stop()
+        set_led('red')
+        break
+    wait(0.1)
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">read_line_sensor()</code></div>
+                    <div class="fn-body">
+                        <p>Read all four infrared line sensors. Returns a list of 4 booleans — <code>True</code> when a black line is detected. Sensors are ordered left to right: S1, S2, S3, S4.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">s = read_line_sensor()
+print(s)
+
+if s[1] or s[2]:
+    print('Line under center sensors')
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">follow_line(duration=5, speed=60)</code></div>
+                    <div class="fn-body">
+                        <p>Autonomously follow a black line on the floor for the given duration. Uses all four infrared sensors to steer.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">set_led('blue')
+follow_line(10, 60)
+set_led('off')
+print('Done following line')
+</code></pre>
+                    </div>
+                </div>
+
+                <h3 id="fn-effects" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Effects</h3>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">set_led(color='off')</code></div>
+                    <div class="fn-body">
+                        <p>Set the robot's RGB LEDs. Valid colors: <code>red</code> <code>orange</code> <code>yellow</code> <code>green</code> <code>blue</code> <code>purple</code> <code>white</code> <code>off</code>.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">set_led('green')
+forward(2, 80)
+set_led('red')
+stop()
+wait(1)
+set_led('off')
+</code></pre>
+                    </div>
+                </div>
+
+                <div class="fn-card">
+                    <div class="fn-header"><code class="fn-sig">beep(duration=0.2)</code></div>
+                    <div class="fn-body">
+                        <p>Sound the piezo buzzer for the given duration in seconds.</p>
+                        <h4>Example</h4>
+                        <pre><code class="language-python">beep(0.1)
+wait(0.1)
+beep(0.1)
+</code></pre>
+                    </div>
+                </div>
+
+                <h3 style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Full Example</h3>
+                <pre><code class="language-python">print('Maze runner starting')
+set_led('blue')
+
+for i in range(3):
+    d = distance_cm()
+    print(f'Loop {i+1}, distance: {d} cm')
+
+    if d is not None and d < 25:
+        set_led('red')
+        beep(0.2)
+        turn_right(0.8, 100)
+    else:
+        set_led('green')
+        forward(1.5, 80)
+
+set_led('off')
+print('Done')
+</code></pre>
+
+            </section>
+        </article>
+    </main>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

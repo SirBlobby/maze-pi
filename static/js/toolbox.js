@@ -17,8 +17,20 @@ const MAZE_TOOLBOX = {
         },
         {
             kind: 'category',
-            name: 'Sensors',
-            colour: 230,
+            name: 'Control',
+            colour: 30,
+            contents: [
+                { kind: 'block', type: 'maze_wait' },
+                { kind: 'block', type: 'maze_repeat' },
+                { kind: 'block', type: 'maze_while_obstacle' },
+                { kind: 'block', type: 'maze_while_clear' },
+                { kind: 'block', type: 'maze_while_line' }
+            ]
+        },
+        {
+            kind: 'category',
+            name: 'Sonar',
+            colour: 210,
             contents: [
                 { kind: 'block', type: 'maze_wait_until_obstacle' },
                 { kind: 'block', type: 'maze_wait_until_clear' },
@@ -27,11 +39,12 @@ const MAZE_TOOLBOX = {
         },
         {
             kind: 'category',
-            name: 'Control',
-            colour: 30,
+            name: 'Line Sensors',
+            colour: 180,
             contents: [
-                { kind: 'block', type: 'maze_wait' },
-                { kind: 'block', type: 'maze_repeat' }
+                { kind: 'block', type: 'maze_follow_line' },
+                { kind: 'block', type: 'maze_wait_until_line' },
+                { kind: 'block', type: 'maze_if_line' }
             ]
         },
         {

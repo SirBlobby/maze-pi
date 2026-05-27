@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Pi — Code</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/code.css">
+</head>
+<body>
+    <header>
+        <h1>Maze Pi</h1>
+        <nav class="page-nav">
+            <a href="/"     class="nav-link">Blocks</a>
+            <a href="/code" class="nav-link active">Code</a>
+            <a href="/docs" class="nav-link">Docs</a>
+        </nav>
+        <div class="controls">
+            <button id="run-btn"   class="btn btn-run">Run</button>
+            <button id="stop-btn"  class="btn btn-stop">Stop</button>
+            <button id="clear-btn" class="btn btn-clear">Clear</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="editor-pane">
+            <div class="pane-header">
+                Python Editor
+                <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9ca3af">Ctrl+Enter to run</span>
+            </div>
+            <div id="editor"></div>
+        </div>
+
+        <div class="output-pane">
+            <div class="pane-header">
+                Output
+                <span id="run-status">Ready</span>
+            </div>
+            <div id="output"></div>
+
+            <div class="reference-panel">
+                <div class="pane-header">Quick Reference</div>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td>forward(duration, speed)</td><td>Drive forward</td></tr>
+                        <tr><td>backward(duration, speed)</td><td>Drive backward</td></tr>
+                        <tr><td>turn_left(duration, speed)</td><td>Spin left</td></tr>
+                        <tr><td>turn_right(duration, speed)</td><td>Spin right</td></tr>
+                        <tr><td>strafe_left(duration, speed)</td><td>Slide left</td></tr>
+                        <tr><td>strafe_right(duration, speed)</td><td>Slide right</td></tr>
+                        <tr><td>stop()</td><td>Stop motors</td></tr>
+                        <tr><td>wait(duration)</td><td>Pause</td></tr>
+                        <tr><td>set_led(color)</td><td>red orange yellow green blue purple white off</td></tr>
+                        <tr><td>beep(duration)</td><td>Play buzzer</td></tr>
+                        <tr><td>distance_cm()</td><td>Sonar reading in cm</td></tr>
+                        <tr><td>read_line_sensor()</td><td>List of 4 booleans (True = line)</td></tr>
+                        <tr><td>follow_line(duration, speed)</td><td>Autonomous line following</td></tr>
+                        <tr><td>print(...)</td><td>Show in output panel</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/cm6.bundle.js"></script>
+    <script src="js/code_editor.js"></script>
+</body>
+</html>

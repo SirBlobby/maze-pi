@@ -1,0 +1,18 @@
+{
+  "name": "maze-pi",
+  "private": true,
+  "scripts": {
+    "build": "rollup static/js/src/cm6_editor.js -f iife -o static/js/cm6.bundle.js -p @rollup/plugin-node-resolve --output.name cm6",
+    "build:min": "rollup static/js/src/cm6_editor.js -f iife -o static/js/cm6.bundle.js -p @rollup/plugin-node-resolve --output.name cm6 && cd static/js && npx minify cm6.bundle.js > cm6.bundle.min.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "rollup": "^4.0.0"
+  },
+  "dependencies": {
+    "@codemirror/lang-python": "^6.1.6",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@codemirror/view": "^6.26.0",
+    "codemirror": "^6.0.1"
+  }
+}
