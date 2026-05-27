@@ -5,6 +5,10 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 pip3 install -r "$SCRIPT_DIR/requirements.txt"
 
+cd "$SCRIPT_DIR"
+npm install
+npm run build
+
 chmod +x "$SCRIPT_DIR/dev.sh"
 chmod +x "$SCRIPT_DIR/service/install_service.sh"
 chmod +x "$SCRIPT_DIR/service/uninstall_service.sh"

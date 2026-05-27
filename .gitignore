@@ -8,5 +8,3 @@ venv/
 turbopi_template/
 
 node_modules/
-static/js/cm6.bundle.js
-static/js/cm6.bundle.min.js
