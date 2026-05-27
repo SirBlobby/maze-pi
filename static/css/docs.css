@@ -23,6 +23,24 @@ main {
     overflow-y: auto;
     padding: 2rem 2.5rem;
     min-width: 0;
+    background: white;
+}
+
+.docs-intro {
+    font-size: 0.88rem;
+    color: #374151;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.docs-content a {
+    color: #1d4ed8;
+}
+
+.docs-section h3 {
+    font-size: 1rem;
+    color: #374151;
+    margin: 1.5rem 0 0.75rem;
 }
 
 .sidebar-group {

@@ -41,6 +41,10 @@ const BLOCK_GENERATORS = {
         count:  Number(b.getFieldValue('COUNT')),
         body:   chainToCommands(b.getInputTargetBlock('BODY'))
     }),
+    maze_forever: (b) => ({
+        action: 'forever',
+        body:   chainToCommands(b.getInputTargetBlock('BODY'))
+    }),
     maze_while_obstacle: (b) => ({
         action:    'while_obstacle',
         threshold: Number(b.getFieldValue('THRESHOLD')),

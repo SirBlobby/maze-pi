@@ -247,6 +247,14 @@ def _handle_while_line(ex, cmd):
         ex._run_block(body)
 
 
+def _handle_forever(ex, cmd):
+    body = cmd.get('body', [])
+    if not isinstance(body, list):
+        return
+    while not ex._stop_flag.is_set():
+        ex._run_block(body)
+
+
 def _handle_follow_line(ex, cmd):
     speed    = max(50, float(cmd.get('speed', 60)))
     deadline = time.time() + max(0.0, float(cmd.get('duration', 5.0)))
@@ -266,6 +274,7 @@ HANDLERS = {
     'stop':                _handle_stop,
     'wait':                _handle_wait,
     'repeat':              _handle_repeat,
+    'forever':             _handle_forever,
     'set_led':             _handle_set_led,
     'beep':                _handle_beep,
     'wait_until_obstacle': _handle_wait_until_obstacle,

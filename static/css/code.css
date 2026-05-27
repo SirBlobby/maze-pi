@@ -75,6 +75,15 @@ main {
     height: 230px;
     overflow-y: auto;
     border-top: 2px solid #e5e7eb;
+    background: white;
+}
+
+.pane-hint {
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #9ca3af;
 }
 
 .ref-table {

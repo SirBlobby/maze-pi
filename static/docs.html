@@ -208,13 +208,13 @@
 
             <section class="docs-section" id="python-api">
                 <h2>Python Code API</h2>
-                <p style="font-size:.88rem;color:#374151;margin-bottom:1.5rem;line-height:1.6">
-                    The following functions are available in the <a href="/code" style="color:#1d4ed8">Code editor</a>.
+                <p class="docs-intro">
+                    The following functions are available in the <a href="/code">Code editor</a>.
                     All movement functions are blocking — they drive the robot and return only after the duration has elapsed.
                     <br>Speed ranges from <strong>50–100</strong> (default <strong>80</strong>). Duration is in seconds.
                 </p>
 
-                <h3 id="fn-movement" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Movement</h3>
+                <h3 id="fn-movement">Movement</h3>
 
                 <div class="fn-card">
                     <div class="fn-header"><code class="fn-sig">forward(duration=1, speed=80)</code></div>
@@ -279,7 +279,7 @@ forward(0.5)
                     <div class="fn-body"><p>Stop all motors immediately. Does not block.</p></div>
                 </div>
 
-                <h3 id="fn-control" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Control</h3>
+                <h3 id="fn-control">Control</h3>
 
                 <div class="fn-card">
                     <div class="fn-header"><code class="fn-sig">wait(duration=1)</code></div>
@@ -307,7 +307,7 @@ print('Line sensors:', sensors)
                     </div>
                 </div>
 
-                <h3 id="fn-sensors" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Sensors</h3>
+                <h3 id="fn-sensors">Sensors</h3>
 
                 <div class="fn-card">
                     <div class="fn-header"><code class="fn-sig">distance_cm()</code></div>
@@ -353,7 +353,7 @@ print('Done following line')
                     </div>
                 </div>
 
-                <h3 id="fn-effects" style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Effects</h3>
+                <h3 id="fn-effects">Effects</h3>
 
                 <div class="fn-card">
                     <div class="fn-header"><code class="fn-sig">set_led(color='off')</code></div>
@@ -382,7 +382,7 @@ beep(0.1)
                     </div>
                 </div>
 
-                <h3 style="font-size:1rem;color:#374151;margin:1.5rem 0 0.75rem">Full Example</h3>
+                <h3>Full Example</h3>
                 <pre><code class="language-python">print('Maze runner starting')
 set_led('blue')
 

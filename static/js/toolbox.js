@@ -22,6 +22,7 @@ const MAZE_TOOLBOX = {
             contents: [
                 { kind: 'block', type: 'maze_wait' },
                 { kind: 'block', type: 'maze_repeat' },
+                { kind: 'block', type: 'maze_forever' },
                 { kind: 'block', type: 'maze_while_obstacle' },
                 { kind: 'block', type: 'maze_while_clear' },
                 { kind: 'block', type: 'maze_while_line' }

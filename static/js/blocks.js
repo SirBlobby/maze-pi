@@ -108,6 +108,18 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: 'Run the inner blocks a set number of times.'
     },
     {
+        type: 'maze_forever',
+        message0: 'repeat forever',
+        message1: 'do %1',
+        args1: [
+            { type: 'input_statement', name: 'BODY' }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 30,
+        tooltip: 'Repeat the inner blocks forever until Stop is pressed.'
+    },
+    {
         type: 'maze_while_obstacle',
         message0: 'while obstacle within %1 cm',
         args0: [
